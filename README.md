@@ -3,8 +3,8 @@
 
 Android-CalendarView
 ====================
-![](http://github.com/laserwave/Android-CalendarView/raw/master/display/1.gif)
-![](http://github.com/laserwave/Android-CalendarView/raw/master/display/2.gif)
+![](https://github.com/laserwave/Android-CalendarView/blob/master/display/1.gif)
+![](https://github.com/laserwave/Android-CalendarView/blob/master/display/2.gif)
 
 There are two different modes as the pictures above show. 
 
