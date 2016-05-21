@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="pickerview_cancel">cancel</string>
+    <string name="pickerview_submit">ok</string>
+    <string name="pickerview_year"></string>
+    <string name="pickerview_month"></string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+</resources>
