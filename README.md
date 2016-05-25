@@ -31,8 +31,7 @@ Usage
 -----
 *For a working implementation of this project see the `sample/` folder.*
 
-1. Include one of the widgets in your xml. You can set the mode 0 for the normal calendar mode and 1 for the record mode. You can also the mode in your java code.
-
+Step1. Include one of the widgets in your xml. You can set the mode 0 for the normal calendar mode and 1 for the record mode. You can also the mode in your java code.
 ``` 
 <cn.zhikaizhang.calendarview.CalendarView
         android:id="@+id/calendarView"
@@ -41,9 +40,7 @@ Usage
         app:mode="0">
 </cn.zhikaizhang.calendarview.CalendarView>
 ```
-
-2. Refresh the CalendarView. You will use refresh0() for the normal calendar mode and refresh1() for the record mode.
-
+Step2. Refresh the CalendarView. You will use refresh0() for the normal calendar mode and refresh1() for the record mode.
 ``` 
 calendarView.setMode(0);
 //refresh the CalendarView with new values of year and month
@@ -63,9 +60,7 @@ for(int i = 1; i <= days; i++){
 }
 calendarView.refresh1(data);
 ```
-
-3. Set the appearance you like. You can set the language to English or Chinese. You can also modify the color and size of the text.
-
+Step3. Set the appearance you like. You can set the language to English or Chinese. You can also modify the color and size of the text.
 ``` 
 /**
  * modify the language of head of the calendar
@@ -92,9 +87,7 @@ calendarView.setCalendarTextColor(Color.BLACK);
  */
 calendarView.setTextSizeScale(0.5f);
 ```
-
-4. Implement the callback. Set the OnRefreshListener to do what you want after you refresh the calendar and set the OnItemClickListener to do what you want after you click a day.
-
+Step4. Implement the callback. Set the OnRefreshListener to do what you want after you refresh the calendar and set the OnItemClickListener to do what you want after you click a day.
 ``` 
 calendarView.setOnRefreshListener(new ICalendarView.OnRefreshListener() {
 	@Override
