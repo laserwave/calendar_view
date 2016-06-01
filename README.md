@@ -19,7 +19,7 @@ Including In Your Project
 
 #### Gradle
 Add the following code in the build.gradle of your module.
-``` 
+```groovy
 dependencies {
     compile 'cn.zhikaizhang.calendar:library:1.0.0'
 }
@@ -32,7 +32,7 @@ Usage
 *For a working implementation of this project see the `sample/` folder.*
 
 Step1. Include one of the widgets in your xml. You can set the mode 0 for the normal calendar mode and 1 for the record mode. You can also the mode in your java code.
-``` 
+```xml
 <cn.zhikaizhang.calendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@ Step1. Include one of the widgets in your xml. You can set the mode 0 for the no
 </cn.zhikaizhang.calendarview.CalendarView>
 ```
 Step2. Refresh the CalendarView. You will use refresh0() for the normal calendar mode and refresh1() for the record mode.
-``` 
+```java
 calendarView.setMode(0);
 //refresh the CalendarView with new values of year and month
 calendarView.refresh0(year, month);
@@ -61,7 +61,7 @@ for(int i = 1; i <= days; i++){
 calendarView.refresh1(data);
 ```
 Step3. Set the appearance you like. You can set the language to English or Chinese. You can also modify the color and size of the text.
-``` 
+```java
 /**
  * modify the language of head of the calendar
  * legal values of style : 0 - 3
@@ -88,7 +88,7 @@ calendarView.setCalendarTextColor(Color.BLACK);
 calendarView.setTextSizeScale(0.5f);
 ```
 Step4. Implement the callback. Set the OnRefreshListener to do what you want after you refresh the calendar and set the OnItemClickListener to do what you want after you click a day.
-``` 
+```java
 calendarView.setOnRefreshListener(new ICalendarView.OnRefreshListener() {
 	@Override
 	public void onRefresh() {
