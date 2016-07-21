@@ -49,21 +49,25 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
     private int curEndIndex;
 
     /**
+     * the index in date[] of today
+     */
+    private int todayIndex = -1;
+
+    /**
      * [only used for MODE_SHOW_DATA_OF_THIS_MONTH]
      * data[i] indicates whether completing the plan on the ith day of current month (such as running in JOY RUN)
      */
     private boolean[] data = new boolean[32];
 
     /**
-     * [only used for MODE_SHOW_DATA_OF_THIS_MONTH]
-     * the index in date[] of today
-     */
-    private int todayIndex;
-
-    /**
      * record the index in date[] of the last ACTION_DOWN event
      */
     private int actionDownIndex = -1;
+
+    /**
+     * record the selected index in date[]
+     */
+    private int selectedIndex = -1;
 
     private OnItemClickListener onItemClickListener;
 
@@ -91,7 +95,9 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
     private Paint whitePaint;
     private Paint bluePaint;
     private Paint blackPaint;
-
+    private Paint todayBgPaint;
+    private Paint selectedDayBgPaint;
+    private Paint selectedDayTextPaint;
 
 
     public CalendarView(Context context, AttributeSet attrs, int defStyle) {
@@ -150,6 +156,15 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
 
         grayPaint = RenderUtil.getPaint(Color.rgb(200, 200, 200));
 
+        todayBgPaint = RenderUtil.getPaint(Color.rgb(124, 180, 246));
+        todayBgPaint.setStrokeWidth(3);
+        todayBgPaint.setStyle(Paint.Style.STROKE);
+
+        selectedDayBgPaint = RenderUtil.getPaint(Color.rgb(124, 180, 246));
+
+        selectedDayTextPaint = RenderUtil.getPaint(Color.WHITE);
+        selectedDayTextPaint.setTextSize(cellHeight * 0.4f);
+
         initial();
 
     }
@@ -184,15 +199,15 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
         int daysOfMonth = daysOfCurrentMonth();
         /**
          * calculate the total lines, which equals to 1 (head of the calendar) + 1 (the first line) + n/7 + (n%7==0?0:1)
-         * and n means numberOfDaysExceptFirstLine
+         * and n means number of days except first line of the calendar
          */
-        int numberOfDaysExceptFirstLine = -1;
+        int n = -1;
         if(dayOfWeek >= 2 && dayOfWeek <= 7){
-            numberOfDaysExceptFirstLine = daysOfMonth - (8 - dayOfWeek + 1);
+            n = daysOfMonth - (8 - dayOfWeek + 1);
         }else if(dayOfWeek == 1){
-            numberOfDaysExceptFirstLine = daysOfMonth - 1;
+            n = daysOfMonth - 1;
         }
-        int lines = 2 + numberOfDaysExceptFirstLine / 7 + (numberOfDaysExceptFirstLine % 7 == 0 ? 0 : 1);
+        int lines = 2 + n / 7 + (n % 7 == 0 ? 0 : 1);
         return (int) (cellHeight * lines);
     }
 
@@ -215,8 +230,15 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
         }
         curEndIndex = monthStart + daysOfMonth;
         if(mode == Constant.MODE_SHOW_DATA_OF_THIS_MONTH){
-            Calendar tmp = Calendar.getInstance();
-            todayIndex = tmp.get(Calendar.DAY_OF_MONTH) + monthStart - 1;
+            todayIndex = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + monthStart - 1;
+        }else if(mode == Constant.MODE_CALENDAR){
+            //the year and month selected is the current year and month
+            if(calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)
+                    && calendar.get(Calendar.MONTH) == Calendar.getInstance().get(Calendar.MONTH)){
+                todayIndex = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + monthStart - 1;
+            }else{
+                todayIndex = -1;
+            }
         }
     }
 
@@ -293,7 +315,19 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
 
         if(mode == Constant.MODE_CALENDAR){
             for (int i = curStartIndex; i < curEndIndex; i++) {
-                drawText(canvas, i, textPaint, "" + date[i]);
+                if(i == todayIndex && i == selectedIndex){
+                    drawCircle(canvas, i, selectedDayBgPaint, cellHeight * 0.48f);
+                    drawText(canvas, i, selectedDayTextPaint, "" + date[i]);
+                }else if(i == todayIndex){
+                    drawCircle(canvas, i, todayBgPaint, cellHeight * 0.48f);
+                    drawText(canvas, i, textPaint, "" + date[i]);
+                }else if(i == selectedIndex){
+                    drawCircle(canvas, i, selectedDayBgPaint, cellHeight * 0.48f);
+                    drawText(canvas, i, selectedDayTextPaint, "" + date[i]);
+                }else{
+                    drawText(canvas, i, textPaint, "" + date[i]);
+                }
+
             }
         }else if(mode == Constant.MODE_SHOW_DATA_OF_THIS_MONTH){
             for (int i = curStartIndex; i < curEndIndex; i++) {
@@ -363,6 +397,7 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
                     int index = getIndexByCoordinate(x, y);
                     if(isLegalIndex(index)) {
                         actionDownIndex = index;
+                        selectedIndex = -1;
                     }
                 }
                 break;
@@ -371,11 +406,13 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
                     int actionUpIndex = getIndexByCoordinate(x, y);
                     if(isLegalIndex(actionUpIndex)){
                         if(actionDownIndex == actionUpIndex){
+                            selectedIndex = actionUpIndex;
                             actionDownIndex = -1;
                             int day = date[actionUpIndex];
                             if(onItemClickListener != null){
                                 onItemClickListener.onItemClick(day);
                             }
+                            invalidate();
                         }
                     }
                 }
@@ -420,6 +457,7 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
         if(mode == Constant.MODE_CALENDAR){
             selectedYear = year;
             selectedMonth = month;
+            selectedIndex = -1;
             calendar.set(Calendar.YEAR, selectedYear);
             calendar.set(Calendar.MONTH, selectedMonth - 1);
             calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -505,7 +543,24 @@ public class CalendarView extends View implements View.OnTouchListener, ICalenda
     public void setTextSizeScale(float scale) {
         if(scale >= 0 && scale <= 1) {
             textPaint.setTextSize(cellHeight * 0.5f * scale);
+            selectedDayTextPaint.setTextSize(cellHeight * 0.5f * scale);
         }
+    }
+
+
+    @Override
+    public void setSelectedDayTextColor(int color) {
+        selectedDayTextPaint.setColor(color);
+    }
+
+    @Override
+    public void setSelectedDayBgColor(int color) {
+        selectedDayBgPaint.setColor(color);
+    }
+
+    @Override
+    public void setTodayBgColor(int color) {
+        todayBgPaint.setColor(color);
     }
 
     @Override

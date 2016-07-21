@@ -9,6 +9,12 @@ public interface ICalendarView {
      */
     void refresh0(int year, int month);
 
+    void setSelectedDayTextColor(int color);
+
+    void setSelectedDayBgColor(int color);
+
+    void setTodayBgColor(int color);
+
     /**
      * only used for MODE_SHOW_DATA_OF_THIS_MONTH
      */
