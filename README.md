@@ -1,6 +1,3 @@
-[The related article in my blog](http://zhikaizhang.cn)
--------------------------------------------------------
-
 Android-CalendarView
 ====================
 ![](https://github.com/laserwave/Android-CalendarView/blob/master/display/1.gif)
@@ -19,7 +16,7 @@ Including In Your Project
 
 #### Gradle
 Add the following code in the build.gradle of your module.
-``` 
+```groovy
 dependencies {
     compile 'cn.zhikaizhang.calendar:library:1.0.0'
 }
@@ -31,9 +28,8 @@ Usage
 -----
 *For a working implementation of this project see the `sample/` folder.*
 
-1. Include one of the widgets in your xml. You can set the mode 0 for the normal calendar mode and 1 for the record mode. You can also the mode in your java code.
-
-``` 
+Step1. Include one of the widgets in your xml. You can set the mode 0 for the normal calendar mode and 1 for the record mode. You can also the mode in your java code.
+```xml
 <cn.zhikaizhang.calendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
@@ -41,10 +37,8 @@ Usage
         app:mode="0">
 </cn.zhikaizhang.calendarview.CalendarView>
 ```
-
-2. Refresh the CalendarView. You will use refresh0() for the normal calendar mode and refresh1() for the record mode.
-
-``` 
+Step2. Refresh the CalendarView. You will use refresh0() for the normal calendar mode and refresh1() for the record mode.
+```java
 calendarView.setMode(0);
 //refresh the CalendarView with new values of year and month
 calendarView.refresh0(year, month);
@@ -63,10 +57,8 @@ for(int i = 1; i <= days; i++){
 }
 calendarView.refresh1(data);
 ```
-
-3. Set the appearance you like. You can set the language to English or Chinese. You can also modify the color and size of the text.
-
-``` 
+Step3. Set the appearance you like. You can set the language to English or Chinese. You can also modify the color and size of the text.
+```java
 /**
  * modify the language of head of the calendar
  * legal values of style : 0 - 3
@@ -92,10 +84,8 @@ calendarView.setCalendarTextColor(Color.BLACK);
  */
 calendarView.setTextSizeScale(0.5f);
 ```
-
-4. Implement the callback. Set the OnRefreshListener to do what you want after you refresh the calendar and set the OnItemClickListener to do what you want after you click a day.
-
-``` 
+Step4. Implement the callback. Set the OnRefreshListener to do what you want after you refresh the calendar and set the OnItemClickListener to do what you want after you click a day.
+```java
 calendarView.setOnRefreshListener(new ICalendarView.OnRefreshListener() {
 	@Override
 	public void onRefresh() {
@@ -113,12 +103,13 @@ calendarView.setOnItemClickListener(new ICalendarView.OnItemClickListener() {
 });
 ```
 
-Developed By
-============
+Author
+======
 
  * ZhikaiZhang 
  * Email <zhangzhikai@seu.edu.cn>
- * Blog <http://zhangzhikai.cn>
+ * Blog <http://zhikaizhang.cn>
+ * [android自定义控件之日历控件的实现](http://zhikaizhang.cn/2016/05/21/android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B9%8B%E6%97%A5%E5%8E%86%E6%8E%A7%E4%BB%B6%E7%9A%84%E5%AE%9E%E7%8E%B0/)
 
 License
 =======
