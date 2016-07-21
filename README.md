@@ -1,13 +1,10 @@
 Android-CalendarView
 ====================
-![](https://github.com/laserwave/Android-CalendarView/blob/master/display/1.gif)
-![](https://github.com/laserwave/Android-CalendarView/blob/master/display/2.gif)
+#### normal mode
+![](https://github.com/laserwave/Android-CalendarView/blob/master/images/1.gif)
 
-There are two different modes as the pictures above show. 
-
-The former is in the normal calendar mode. 
-
-The latter is in the record mode, aiming to record the completion of your plans in the current month. 
+#### record mode
+![](https://github.com/laserwave/Android-CalendarView/blob/master/images/2.gif)
 
 Support `API LEVEL >= 7`.
 
@@ -18,7 +15,7 @@ Including In Your Project
 Add the following code in the build.gradle of your module.
 ```groovy
 dependencies {
-    compile 'cn.zhikaizhang.calendar:library:1.0.0'
+    compile 'cn.zhikaizhang.calendar:library:1.0.1'
 }
 ```
 #### Download the source code
@@ -28,7 +25,7 @@ Usage
 -----
 *For a working implementation of this project see the `sample/` folder.*
 
-Step1. Include one of the widgets in your xml. You can set the mode 0 for the normal calendar mode and 1 for the record mode. You can also the mode in your java code.
+Step1. Include one of the widgets in your xml. You can set the mode 0 for the normal mode and 1 for the record mode. You can also specify the mode in your java code.
 ```xml
 <cn.zhikaizhang.calendarview.CalendarView
         android:id="@+id/calendarView"
@@ -83,6 +80,21 @@ calendarView.setCalendarTextColor(Color.BLACK);
  * legal values : 0.0f - 1.0f
  */
 calendarView.setTextSizeScale(0.5f);
+
+/**
+ * set the color of the text of selected day
+ */
+calendarView.setSelectedDayTextColor(Color.WHITE);
+
+/**
+ * set the color of the background of selected day
+ */
+calendarView.setSelectedDayBgColor(Color.rgb(124, 180, 246));
+
+/**
+ * set the color of the background of today
+ */
+calendarView.setTodayBgColor(Color.rgb(124, 180, 246));
 ```
 Step4. Implement the callback. Set the OnRefreshListener to do what you want after you refresh the calendar and set the OnItemClickListener to do what you want after you click a day.
 ```java

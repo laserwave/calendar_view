@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 //apply plugin: 'com.github.dcendents.android-maven'
 //apply plugin: 'com.jfrog.bintray'
-//version = "1.0.0"
+version = "1.0.1"
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-    //resourcePrefix "calendarview__"
+    resourcePrefix "calendarview__"
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 23
@@ -94,4 +94,3 @@ bintray {
     }
 }
 */
-

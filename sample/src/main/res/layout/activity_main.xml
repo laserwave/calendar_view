@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="18sp"
-        android:text="Android-CalendarView"
+        android:text="laserwave/android-calendarview"
         android:textColor="#000000"
         android:padding="20dp"/>
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Normal Calendar Mode"
+        android:text="normal mode"
         android:textColor="#000000"
         />
 
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Record of This Month Mode"
+        android:text="record  mode"
         android:textColor="#000000"/>
 
 

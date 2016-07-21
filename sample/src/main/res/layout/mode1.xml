@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:text="This Month Running"
+            android:text="Running Record"
             android:textColor="#000000"
             android:textSize="15sp" />
 
